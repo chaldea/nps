@@ -1,0 +1,13 @@
+version: "3.5"
+services: 
+  npc:
+    container_name: npc
+    image: chaldea/npc
+    restart: always
+    build: 
+      context: ../../
+      dockerfile: ./docker/npc/Dockerfile
+    environment:
+      SERVER_ADDR: 127.0.0.1:8024
+      CONN_TYPE: 1234
+      VKEY: tcp

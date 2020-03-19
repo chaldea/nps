@@ -1,0 +1,7 @@
+.env
+.git
+.github
+.gitattributes
+.gitignore
+.dockerignore
+docker

@@ -3,12 +3,13 @@ package file
 import (
 	"encoding/json"
 	"errors"
-	"github.com/astaxie/beego/logs"
 	"os"
 	"path/filepath"
 	"strings"
 	"sync"
 	"sync/atomic"
+
+	"github.com/astaxie/beego/logs"
 
 	"ehang.io/nps/lib/common"
 	"ehang.io/nps/lib/rate"
@@ -17,9 +18,9 @@ import (
 func NewJsonDb(runPath string) *JsonDb {
 	return &JsonDb{
 		RunPath:        runPath,
-		TaskFilePath:   filepath.Join(runPath, "conf", "tasks.json"),
-		HostFilePath:   filepath.Join(runPath, "conf", "hosts.json"),
-		ClientFilePath: filepath.Join(runPath, "conf", "clients.json"),
+		TaskFilePath:   filepath.Join(runPath, "data", "tasks.json"),
+		HostFilePath:   filepath.Join(runPath, "data", "hosts.json"),
+		ClientFilePath: filepath.Join(runPath, "data", "clients.json"),
 	}
 }
 
@@ -137,6 +138,9 @@ func (s *JsonDb) GetHostId() int32 {
 }
 
 func loadSyncMapFromFile(filePath string, f func(value string)) {
+	if _, err := os.Stat(filePath); err != nil {
+		return
+	}
 	b, err := common.ReadAllFromFile(filePath)
 	if err != nil {
 		panic(err)
