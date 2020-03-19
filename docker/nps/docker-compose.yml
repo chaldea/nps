@@ -1,0 +1,15 @@
+version: "3.5"
+services:
+  nps:
+    container_name: nps
+    image: chaldea/nps
+    restart: always
+    network_mode: host
+    build: 
+      context: ../../
+      dockerfile: ./docker/nps/Dockerfile
+    volumes:
+      - /opt/nps/data:/nps/data
+    environment:
+      WEB_USERNAME: admin
+      WEB_PASSWORD: 123456
